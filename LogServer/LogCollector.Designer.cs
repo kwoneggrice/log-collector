@@ -93,15 +93,18 @@
 			btnServerStart.TabIndex = 5;
 			btnServerStart.Text = "서버 시작";
 			btnServerStart.UseVisualStyleBackColor = true;
+			btnServerStart.Click += btnServerStart_Click;
 			// 
 			// btnServerStop
 			// 
+			btnServerStop.Enabled = false;
 			btnServerStop.Location = new Point(718, 12);
 			btnServerStop.Name = "btnServerStop";
 			btnServerStop.Size = new Size(70, 50);
 			btnServerStop.TabIndex = 6;
 			btnServerStop.Text = "서버 종료";
 			btnServerStop.UseVisualStyleBackColor = true;
+			btnServerStop.Click += btnServerStop_Click;
 			// 
 			// LogCollector
 			// 
