@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace LogServer
 {
@@ -7,6 +8,28 @@ namespace LogServer
 	{
 		TcpListener _server;
 		bool _isStart = true;
+
+		private async Task DataHandler(TcpClient client)
+		{
+			NetworkStream stream = client.GetStream();
+			byte[] receiveDataBuffer = new byte[1024];
+			int receiveDataSize;
+
+			while (true)
+			{
+				// 가상 머신에서 첫번째로 보낸 길이
+				receiveDataSize = await stream.ReadAsync(receiveDataBuffer, 0, receiveDataBuffer.Length);
+				if (receiveDataSize == 0) break;
+
+				// 가상 머신에서 보낸 데이터
+				receiveDataSize = BitConverter.ToInt32(receiveDataBuffer);
+				byte[] dataBuffer = new byte[receiveDataSize];
+				receiveDataSize = await stream.ReadAsync(dataBuffer, 0, receiveDataSize);
+				if (receiveDataSize == 0) break;
+
+				string data = Encoding.UTF8.GetString(dataBuffer, 0, receiveDataSize);
+			}
+		}
 
 		// 시작 정지 버튼 Enable 처리
 		private void IsEnable(bool isStart)
@@ -19,8 +42,8 @@ namespace LogServer
 			}
 			else
 			{
-				btnServerStop.Enabled = false;
 				btnServerStart.Enabled = true;
+				btnServerStop.Enabled = false;
 				_isStart = true;
 			}
 		}

@@ -54,15 +54,18 @@
 			btnMachineStart.TabIndex = 1;
 			btnMachineStart.Text = "장비 가동";
 			btnMachineStart.UseVisualStyleBackColor = true;
+			btnMachineStart.Click += btnMachineStart_Click;
 			// 
 			// btnMachineStop
 			// 
+			btnMachineStop.Enabled = false;
 			btnMachineStop.Location = new Point(402, 12);
 			btnMachineStop.Name = "btnMachineStop";
 			btnMachineStop.Size = new Size(70, 50);
 			btnMachineStop.TabIndex = 2;
 			btnMachineStop.Text = "장비 정지";
 			btnMachineStop.UseVisualStyleBackColor = true;
+			btnMachineStop.Click += btnMachineStop_Click;
 			// 
 			// label2
 			// 

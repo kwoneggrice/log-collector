@@ -1,20 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace VirtualMachine
+﻿namespace VirtualMachine
 {
 	public partial class VirtualMachine : Form
 	{
+		bool _isStart = true;
+
+		private void IsEnable(bool isStart)
+		{
+			if (isStart == true)
+			{
+				btnMachineStart.Enabled = false;
+				btnMachineStop.Enabled = true;
+				_isStart = false;
+			}
+			else
+			{
+				btnMachineStart.Enabled = true;
+				btnMachineStop.Enabled = false;
+				_isStart = true;
+			}
+		}
+
+		private void btnMachineStart_Click(object sender, EventArgs e)
+		{
+			IsEnable(_isStart);
+		}
+
+		private void btnMachineStop_Click(object sender, EventArgs e)
+		{
+			IsEnable(_isStart);
+		}
+
 		public VirtualMachine()
 		{
 			InitializeComponent();
 		}
+
+
 	}
 }
