@@ -32,8 +32,8 @@
 			btnMachineStart = new Button();
 			btnMachineStop = new Button();
 			label2 = new Label();
-			numericUpDown1 = new NumericUpDown();
-			((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+			nudMachineNumber = new NumericUpDown();
+			((System.ComponentModel.ISupportInitialize)nudMachineNumber).BeginInit();
 			SuspendLayout();
 			// 
 			// label1
@@ -77,26 +77,26 @@
 			label2.TabIndex = 3;
 			label2.Text = "Machine Number";
 			// 
-			// numericUpDown1
+			// nudMachineNumber
 			// 
-			numericUpDown1.Location = new Point(156, 78);
-			numericUpDown1.Name = "numericUpDown1";
-			numericUpDown1.Size = new Size(67, 23);
-			numericUpDown1.TabIndex = 5;
+			nudMachineNumber.Location = new Point(156, 78);
+			nudMachineNumber.Name = "nudMachineNumber";
+			nudMachineNumber.Size = new Size(67, 23);
+			nudMachineNumber.TabIndex = 5;
 			// 
 			// VirtualMachine
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(484, 461);
-			Controls.Add(numericUpDown1);
+			Controls.Add(nudMachineNumber);
 			Controls.Add(label2);
 			Controls.Add(btnMachineStop);
 			Controls.Add(btnMachineStart);
 			Controls.Add(label1);
 			Name = "VirtualMachine";
 			Text = "VirtualMachine";
-			((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+			((System.ComponentModel.ISupportInitialize)nudMachineNumber).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -107,6 +107,6 @@
 		private Button btnMachineStart;
 		private Button btnMachineStop;
 		private Label label2;
-		private NumericUpDown numericUpDown1;
+		private NumericUpDown nudMachineNumber;
 	}
 }
