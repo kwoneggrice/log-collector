@@ -70,7 +70,7 @@ namespace LogServer
 			while (true)
 			{
 				TcpClient client = await _server.AcceptTcpClientAsync();
-				await DataHandler(client);
+				_ = DataHandler(client);
 			}
 		}
 

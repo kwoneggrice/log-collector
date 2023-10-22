@@ -53,9 +53,9 @@
 			label2.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point);
 			label2.Location = new Point(12, 88);
 			label2.Name = "label2";
-			label2.Size = new Size(96, 21);
+			label2.Size = new Size(134, 21);
 			label2.TabIndex = 1;
-			label2.Text = "장비 리스트";
+			label2.Text = "가동 장비 리스트";
 			// 
 			// label3
 			// 
