@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using LogCollectorLib.Models;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace LogServer
 	public partial class LogCollector : Form
 	{
 		TcpListener _server;
-		bool _isStart = true;
+		bool _isStart = false;
 
 		private async Task DataHandler(TcpClient client)
 		{
@@ -17,7 +18,7 @@ namespace LogServer
 
 			while (true)
 			{
-				// 가상 머신에서 첫번째로 보낸 길이
+				// 가상 머신에서 보낸 데이터 길이
 				receiveDataSize = await stream.ReadAsync(receiveDataBuffer, 0, receiveDataBuffer.Length);
 				if (receiveDataSize == 0) break;
 
@@ -28,23 +29,34 @@ namespace LogServer
 				if (receiveDataSize == 0) break;
 
 				string data = Encoding.UTF8.GetString(dataBuffer, 0, receiveDataSize);
+				var machineData = MachineData.Parse(data);
+				if (machineData.isRunning == true)
+				{
+					lbLogConsole.Items.Add($"{machineData.MachineNumber}번 장비 가동");
+					lbMachines.Items.Add(machineData.MachineNumber);
+				}
+				else
+				{
+					lbMachines.Items.Remove(machineData.MachineNumber);
+					lbLogConsole.Items.Add($"{machineData.MachineNumber}번 장비 정지");
+				}
 			}
 		}
 
 		// 시작 정지 버튼 Enable 처리
 		private void IsEnable(bool isStart)
 		{
-			if (isStart == true)
+			if (isStart == false)
 			{
+				_isStart = true;
 				btnServerStart.Enabled = false;
 				btnServerStop.Enabled = true;
-				_isStart = false;
 			}
 			else
 			{
+				_isStart = false;
 				btnServerStart.Enabled = true;
 				btnServerStop.Enabled = false;
-				_isStart = true;
 			}
 		}
 
@@ -58,6 +70,7 @@ namespace LogServer
 			while (true)
 			{
 				TcpClient client = await _server.AcceptTcpClientAsync();
+				await DataHandler(client);
 			}
 		}
 
