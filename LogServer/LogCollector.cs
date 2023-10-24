@@ -1,4 +1,5 @@
 ﻿using LogCollectorLib.Models;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -62,20 +63,27 @@ namespace LogServer
 
 		private async void btnServerStart_Click(object sender, EventArgs e)
 		{
-			_server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
-			_server.Start();
-			lbLogConsole.Items.Add("Log Collector 서버 시작");
-			IsEnable(_isStart);
-
-			while (true)
+			try
 			{
-				TcpClient client = await _server.AcceptTcpClientAsync();
-				_ = DataHandler(client);
+				_server.Start();
+				lbLogConsole.Items.Add("Log Collector 서버 시작");
+				IsEnable(_isStart);
+
+				while (true)
+				{
+					TcpClient client = await _server.AcceptTcpClientAsync();
+					_ = DataHandler(client);
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.Print($"오류 발생 : {ex.Message}");
 			}
 		}
 
 		private void btnServerStop_Click(object sender, EventArgs e)
 		{
+
 			_server.Stop();
 			lbLogConsole.Items.Add("Log Collector 서버 종료");
 			IsEnable(_isStart);
@@ -83,6 +91,7 @@ namespace LogServer
 
 		public LogCollector()
 		{
+			_server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
 			InitializeComponent();
 		}
 	}
