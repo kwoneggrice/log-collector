@@ -10,16 +10,6 @@ namespace VirtualMachine
 		TcpClient _client;
 		bool _isStart = false;
 
-		private async Task DataHandler(TcpClient client)
-		{
-			NetworkStream stream = client.GetStream();
-
-			while (true)
-			{
-
-			}
-		}
-
 		private void IsEnable(bool isStart)
 		{
 			if (isStart == false)
@@ -73,6 +63,7 @@ namespace VirtualMachine
 			stream.Write(dataLen);
 			stream.Write(dataBuffer);
 
+			stream.Close();
 			_client.Close();
 
 			IsEnable(_isStart);
@@ -82,7 +73,5 @@ namespace VirtualMachine
 		{
 			InitializeComponent();
 		}
-
-
 	}
 }
